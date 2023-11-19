@@ -385,6 +385,10 @@ input:checked + .slider:before {
   border: 3px solid var(--error-clr);
 }
 
+.no-clickable {
+  pointer-events: none;
+}
+
 .letters {
   color: var(--secondary-clr-text-light);
 
@@ -468,6 +472,10 @@ input:checked + .slider:before {
   border-radius: 24px;
 
   gap: 3.5rem;
+}
+
+.score-quiz-section {
+  gap: 1.5rem;
 }
 
 .score {

@@ -5,7 +5,7 @@ export const QuizContext = createContext();
 const initialState = {
   isDarkMode: false,
   themeMode: 'light',
-  pageIndex: 2,
+  pageIndex: 0,
   quizSection: null,
   questionIndex: null,
   questionNumber: 1,
@@ -40,7 +40,7 @@ const quizReducer = (state, action) => {
     case 'NUMBER_CORRECT_ANSWERS':
       return {
         ...state,
-        correctAnswers: action.payload,
+        correctAnswers: state.correctAnswers + 1,
       };
     case 'UPDATE_IS_ANSWER_CORRECT': {
       return {
@@ -68,6 +68,28 @@ const quizReducer = (state, action) => {
         questionNumber: state.questionNumber + 1,
         progressBar: state.progressBar + 10,
         userAnswer: null,
+        isAnswerCorrect: null,
+        isAnswered: false,
+        isAnswerSubmitted: false,
+      };
+    }
+
+    case 'FINISHED_QUIZ': {
+      return {
+        ...state,
+        pageIndex: 2,
+      };
+    }
+    case 'RESET_GAME': {
+      return {
+        ...state,
+        pageIndex: 0,
+        quizSection: null,
+        questionIndex: null,
+        questionNumber: 1,
+        progressBar: 10,
+        userAnswer: null,
+        correctAnswers: 0,
         isAnswerCorrect: null,
         isAnswered: false,
         isAnswerSubmitted: false,

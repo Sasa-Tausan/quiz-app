@@ -36,12 +36,12 @@ const Answers = ({
         return (
           <li
             key={index}
-            className={`element-bg-${themeMode} box-shadow-${themeMode} d-flex align-center heading-s primary-text-clr-${themeMode} fw-medium ${
+            className={`element-bg-${themeMode} box-shadow-${themeMode} d-flex align-center heading-s primary-text-clr-${themeMode} fw-medium  ${
               isActive ? 'active' : ''
             } ${isCorrectAnswerClass ? 'correct' : ''} ${
               isWrongAnswerClass ? 'wrong' : ''
-            }`}
-            onClick={isAnswerSubmitted || (() => selectAnswer(item))}
+            } ${isAnswerSubmitted ? 'no-clickable' : ''}`}
+            onClick={() => selectAnswer(item)}
           >
             <span
               className={`letters ${isActive ? 'active' : ''} ${

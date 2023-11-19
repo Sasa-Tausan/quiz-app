@@ -6,18 +6,20 @@ import Button from './Button';
 const QuizPage = () => {
   const { state, dispatch } = useContext(QuizContext);
   const {
-    quizSection: { questions },
+    quizSection,
     questionIndex,
     progressBar,
     questionNumber,
     themeMode,
     userAnswer,
-    correctAnswers,
+
     isAnswerCorrect,
     isAnswered,
     isAnswerSubmitted,
   } = state;
 
+  console.log(quizSection.title);
+  const { questions } = quizSection;
   const { question, options, answer } = questions[questionIndex];
 
   const validateAnswer = (_userAnswer, _answer) => {
@@ -27,14 +29,16 @@ const QuizPage = () => {
     dispatch({ type: 'IS_ANSWER_SUBMITTED' });
 
     if (isCorrect) {
-      let prevState = correctAnswers;
-      dispatch({ type: 'NUMBER_CORRECT_ANSWERS', payload: prevState + 1 });
+      dispatch({ type: 'NUMBER_CORRECT_ANSWERS' });
     }
   };
 
   const nextQuestion = () => {
-    const prevState = progressBar;
-    dispatch({ type: 'NEXT_QUESTION', payload: prevState + 10 });
+    if (questionNumber === 10) {
+      dispatch({ type: 'FINISHED_QUIZ' });
+    } else {
+      dispatch({ type: 'NEXT_QUESTION' });
+    }
   };
 
   return (
