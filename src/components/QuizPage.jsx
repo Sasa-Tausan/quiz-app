@@ -1,7 +1,7 @@
-import { useContext } from 'react';
-import { QuizContext } from './QuizProvider';
-import Answers from './Answers';
-import Button from './Button';
+import { useContext } from "react";
+import { QuizContext } from "./QuizProvider";
+import Answers from "./Answers";
+import Button from "./Button";
 
 const QuizPage = () => {
   const { state, dispatch } = useContext(QuizContext);
@@ -12,39 +12,37 @@ const QuizPage = () => {
     questionNumber,
     themeMode,
     userAnswer,
-
     isAnswerCorrect,
     isAnswered,
     isAnswerSubmitted,
   } = state;
 
-  console.log(quizSection.title);
   const { questions } = quizSection;
   const { question, options, answer } = questions[questionIndex];
 
   const validateAnswer = (_userAnswer, _answer) => {
     const isCorrect = _userAnswer === _answer;
-    dispatch({ type: 'UPDATE_IS_ANSWER_CORRECT', payload: isCorrect });
-    dispatch({ type: 'UPDATE_IS_ANSWERED' });
-    dispatch({ type: 'IS_ANSWER_SUBMITTED' });
+    dispatch({ type: "UPDATE_IS_ANSWER_CORRECT", payload: isCorrect });
+    dispatch({ type: "UPDATE_IS_ANSWERED" });
+    dispatch({ type: "IS_ANSWER_SUBMITTED" });
 
     if (isCorrect) {
-      dispatch({ type: 'NUMBER_CORRECT_ANSWERS' });
+      dispatch({ type: "NUMBER_CORRECT_ANSWERS" });
     }
   };
 
   const nextQuestion = () => {
     if (questionNumber === 10) {
-      dispatch({ type: 'FINISHED_QUIZ' });
+      dispatch({ type: "FINISHED_QUIZ" });
     } else {
-      dispatch({ type: 'NEXT_QUESTION' });
+      dispatch({ type: "NEXT_QUESTION" });
     }
   };
 
   return (
-    <main className='page-container d-grid'>
-      <section className='question-section d-flex flex-col space-between'>
-        <div className='question-content d-flex flex-col'>
+    <main className="page-container d-grid">
+      <section className="question-section d-flex flex-col space-between">
+        <div className="question-content d-flex flex-col">
           <p className={`body-s italic secondary-text-clr-${themeMode}`}>
             Question {questionNumber} of 10
           </p>
@@ -56,7 +54,7 @@ const QuizPage = () => {
           className={`progress-bar-container d-flex align-center element-bg-${themeMode} box-shadow-${themeMode}`}
         >
           <div
-            className='progress-bar'
+            className="progress-bar"
             style={{ width: `${progressBar}%` }}
           ></div>
         </div>

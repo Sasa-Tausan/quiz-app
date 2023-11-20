@@ -1,6 +1,6 @@
-import { iconError } from '../assets/images';
+import { iconError } from "../assets/images";
+import { PropTypes } from "prop-types";
 
-// eslint-disable-next-line react/prop-types
 const Button = ({
   themeMode,
   userAnswer,
@@ -10,19 +10,19 @@ const Button = ({
   isAnswered,
 }) => {
   return (
-    <div className='btn-error-container d-flex flex-col align-center'>
+    <div className="btn-error-container d-flex flex-col align-center">
       <button
-        className='btn box-shadow-light heading-s primary-text-clr-dark fw-medium'
+        className="btn box-shadow-light heading-s primary-text-clr-dark fw-medium"
         disabled={!userAnswer ? true : false}
         onClick={
           isAnswered ? nextQuestion : () => validateAnswer(userAnswer, answer)
         }
       >
-        {isAnswered ? 'Next Question' : 'Submit Answer'}
+        {isAnswered ? "Next Question" : "Submit Answer"}
       </button>
       {!!userAnswer || (
-        <div className='error-message d-flex align-center'>
-          <img src={iconError} alt='' />
+        <div className="error-message d-flex align-center">
+          <img src={iconError} alt="" />
           <p className={`body-m error-text-clr-${themeMode}`}>
             Please select an answer
           </p>
@@ -30,6 +30,15 @@ const Button = ({
       )}
     </div>
   );
+};
+
+Button.propTypes = {
+  themeMode: PropTypes.string,
+  userAnswer: PropTypes.string,
+  validateAnswer: PropTypes.func,
+  nextQuestion: PropTypes.func,
+  answer: PropTypes.string,
+  isAnswered: PropTypes.bool,
 };
 
 export default Button;
