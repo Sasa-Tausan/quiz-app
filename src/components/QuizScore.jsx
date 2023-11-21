@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { QuizContext } from './QuizProvider';
+import { motion } from 'framer-motion';
 
 const QuizScore = () => {
   const { state, dispatch } = useContext(QuizContext);
@@ -12,7 +13,12 @@ const QuizScore = () => {
     dispatch({ type: 'RESET_GAME' });
   };
   return (
-    <main className='page-container d-grid'>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className='page-container d-grid'
+    >
       <h1 className={`heading-l fw-light primary-text-clr-${themeMode}`}>
         Quiz completed <br />
         <span className='fw-medium'>You scored...</span>
@@ -39,7 +45,7 @@ const QuizScore = () => {
       >
         Play Again
       </button>
-    </main>
+    </motion.main>
   );
 };
 

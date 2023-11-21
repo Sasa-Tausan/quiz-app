@@ -1,7 +1,8 @@
-import { useContext } from "react";
-import { QuizContext } from "./QuizProvider";
-import Answers from "./Answers";
-import Button from "./Button";
+import { useContext } from 'react';
+import { motion } from 'framer-motion';
+import { QuizContext } from './QuizProvider';
+import Answers from './Answers';
+import Button from './Button';
 
 const QuizPage = () => {
   const { state, dispatch } = useContext(QuizContext);
@@ -22,27 +23,32 @@ const QuizPage = () => {
 
   const validateAnswer = (_userAnswer, _answer) => {
     const isCorrect = _userAnswer === _answer;
-    dispatch({ type: "UPDATE_IS_ANSWER_CORRECT", payload: isCorrect });
-    dispatch({ type: "UPDATE_IS_ANSWERED" });
-    dispatch({ type: "IS_ANSWER_SUBMITTED" });
+    dispatch({ type: 'UPDATE_IS_ANSWER_CORRECT', payload: isCorrect });
+    dispatch({ type: 'UPDATE_IS_ANSWERED' });
+    dispatch({ type: 'IS_ANSWER_SUBMITTED' });
 
     if (isCorrect) {
-      dispatch({ type: "NUMBER_CORRECT_ANSWERS" });
+      dispatch({ type: 'NUMBER_CORRECT_ANSWERS' });
     }
   };
 
   const nextQuestion = () => {
     if (questionNumber === 10) {
-      dispatch({ type: "FINISHED_QUIZ" });
+      dispatch({ type: 'FINISHED_QUIZ' });
     } else {
-      dispatch({ type: "NEXT_QUESTION" });
+      dispatch({ type: 'NEXT_QUESTION' });
     }
   };
 
   return (
-    <main className="page-container d-grid">
-      <section className="question-section d-flex flex-col space-between">
-        <div className="question-content d-flex flex-col">
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className='page-container d-grid'
+    >
+      <section className='question-section d-flex flex-col space-between'>
+        <div className='question-content d-flex flex-col'>
           <p className={`body-s italic secondary-text-clr-${themeMode}`}>
             Question {questionNumber} of 10
           </p>
@@ -53,10 +59,13 @@ const QuizPage = () => {
         <div
           className={`progress-bar-container d-flex align-center element-bg-${themeMode} box-shadow-${themeMode}`}
         >
-          <div
-            className="progress-bar"
+          <motion.div
+            initial={{ width: '10%' }}
+            animate={{ width: `${progressBar}%` }}
+            transition={{ duration: 0.5 }}
+            className='progress-bar'
             style={{ width: `${progressBar}%` }}
-          ></div>
+          ></motion.div>
         </div>
       </section>
       <Answers
@@ -77,7 +86,7 @@ const QuizPage = () => {
         validateAnswer={validateAnswer}
         nextQuestion={nextQuestion}
       />
-    </main>
+    </motion.main>
   );
 };
 
